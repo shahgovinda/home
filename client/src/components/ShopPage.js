@@ -50,26 +50,27 @@ const ShopPage = () => {
   };
 
   const products = [
-    { id: 1, name: 'Door-Mat1', price: 199, category: 'Pocha', image: '/images/door-mat.jpg' },
-    { id: 2, name: 'Aamras(500gm)', price: 500, category: 'Chocolate', image: '/images/aamras.jpg' },
-    { id: 3, name: 'Customised-Bar(15Letters)', price: 200, category: 'Chocolate', image: '/images/customisedbar.jpg' },
-    { id: 4, name: 'Dairy Milk(2bar)', price: 60, category: 'Chocolate', image: '/images/dairymilk.jpg' },
-    { id: 5, name: 'Hazel Nut(15pc)', price: 180, category: 'Chocolate', image: '/images/Hazelnut.jpg' },
-    { id: 6, name: 'Mango Nutella(25pc)', price: 350, category: 'Chocolate', image: '/images/mangonutella.jpg' },
-    { id: 7, name: 'Mix Dry Fruits(15pc)', price: 180, category: 'Chocolate', image: '/images/mixdryfruit.jpg' },
-    { id: 8, name: 'Orange Nutella(25pc)', price: 350, category: 'Chocolate', image: '/images/orangenutella.jpg' },
-    { id: 9, name: 'Oreo Bar(1bar)', price: 100, category: 'Chocolate', image: '/images/oreobar.jpg' },
-    { id: 10, name: 'Oreo Fudge(15pc)', price: 180, category: 'Chocolate', image: '/images/oreofudge.jpg' },
-    { id: 11, name: 'Oreo Truffle', price: 180, category: 'Chocolate', image: '/images/oreotruffle.jpg' },
-    { id: 12, name: 'Pan Masala(10pc)', price: 150, category: 'Chocolate', image: '/images/panmasala.jpg' },
-    { id: 13, name: 'Pista Nutella(25pc)', price: 350, category: 'Chocolate', image: '/images/pistanutella.jpg' },
-    { id: 14, name: 'Roasted Almond(15pc)', price: 150, category: 'Chocolate', image: '/images/roastedalmond.jpg' },
-    { id: 15, name: 'Royal Rose(10pc)', price: 150, category: 'Chocolate', image: '/images/royalrose.jpg' },
-    { id: 16, name: 'Sandwich Chocolate(15pc)', price: 150, category: 'Chocolate', image: '/images/sandwichchocolate.jpg' },
-    { id: 17, name: 'Strawberry Bites(15pc)', price: 250, category: 'Chocolate', image: '/images/strawberrybites.jpg' },
-    { id: 18, name: 'Strawberry Nutella(25pc)', price: 350, category: 'Chocolate', image: '/images/strawberrynutrella.jpg' },
-    { id: 19, name: 'Valentine Special(10pc)', price: 80, category: 'Chocolate', image: '/images/valentinespecial.jpg' },
+    { id: 1, name: 'Door-Mat1', price: 199, category: 'Pocha', image: process.env.PUBLIC_URL + '/images/door-mat.jpg' },
+    { id: 2, name: 'Aamras(500gm)', price: 500, category: 'Chocolate', image: process.env.PUBLIC_URL + '/images/aamras.jpg' },
+    { id: 3, name: 'Customised-Bar(15Letters)', price: 200, category: 'Chocolate', image: process.env.PUBLIC_URL + '/images/customisedbar.jpg' },
+    { id: 4, name: 'Dairy Milk(2bar)', price: 60, category: 'Chocolate', image: process.env.PUBLIC_URL + '/images/dairymilk.jpg' },
+    { id: 5, name: 'Hazel Nut(15pc)', price: 180, category: 'Chocolate', image: process.env.PUBLIC_URL + '/images/Hazelnut.jpg' },
+    { id: 6, name: 'Mango Nutella(25pc)', price: 350, category: 'Chocolate', image: process.env.PUBLIC_URL + '/images/mangonutella.jpg' },
+    { id: 7, name: 'Mix Dry Fruits(15pc)', price: 180, category: 'Chocolate', image: process.env.PUBLIC_URL + '/images/mixdryfruit.jpg' },
+    { id: 8, name: 'Orange Nutella(25pc)', price: 350, category: 'Chocolate', image: process.env.PUBLIC_URL + '/images/orangenutella.jpg' },
+    { id: 9, name: 'Oreo Bar(1bar)', price: 100, category: 'Chocolate', image: process.env.PUBLIC_URL + '/images/oreobar.jpg' },
+    { id: 10, name: 'Oreo Fudge(15pc)', price: 180, category: 'Chocolate', image: process.env.PUBLIC_URL + '/images/oreofudge.jpg' },
+    { id: 11, name: 'Oreo Truffle', price: 180, category: 'Chocolate', image: process.env.PUBLIC_URL + '/images/oreotruffle.jpg' },
+    { id: 12, name: 'Pan Masala(10pc)', price: 150, category: 'Chocolate', image: process.env.PUBLIC_URL + '/images/panmasala.jpg' },
+    { id: 13, name: 'Pista Nutella(25pc)', price: 350, category: 'Chocolate', image: process.env.PUBLIC_URL + '/images/pistanutella.jpg' },
+    { id: 14, name: 'Roasted Almond(15pc)', price: 150, category: 'Chocolate', image: process.env.PUBLIC_URL + '/images/roastedalmond.jpg' },
+    { id: 15, name: 'Royal Rose(10pc)', price: 150, category: 'Chocolate', image: process.env.PUBLIC_URL + '/images/royalrose.jpg' },
+    { id: 16, name: 'Sandwich Chocolate(15pc)', price: 150, category: 'Chocolate', image: process.env.PUBLIC_URL + '/images/sandwichchocolate.jpg' },
+    { id: 17, name: 'Strawberry Bites(15pc)', price: 250, category: 'Chocolate', image: process.env.PUBLIC_URL + '/images/strawberrybites.jpg' },
+    { id: 18, name: 'Strawberry Nutella(25pc)', price: 350, category: 'Chocolate', image: process.env.PUBLIC_URL + '/images/strawberrynutrella.jpg' },
+    { id: 19, name: 'Valentine Special(10pc)', price: 80, category: 'Chocolate', image: process.env.PUBLIC_URL + '/images/valentinespecial.jpg' },
   ];
+  
 
   // Filter products based on selected category
   const filteredProducts = products.filter(
