@@ -8,83 +8,71 @@ const CartPage = () => {
   const [paymentInitiated, setPaymentInitiated] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState('');
   const [countdown, setCountdown] = useState(300); // 5 minutes in seconds
-  const [confirmButtonEnabled, setConfirmButtonEnabled] = useState(false); // Initially disable Confirm Payment button
+  const [confirmButtonEnabled, setConfirmButtonEnabled] = useState(false);
   const [receipt, setReceipt] = useState(null);
   const [paymentConfirmed, setPaymentConfirmed] = useState(false);
-  const [showPaymentProcessing, setShowPaymentProcessing] = useState(false); // To control the display of the processing prompt
+  const [showPaymentProcessing, setShowPaymentProcessing] = useState(false);
 
   useEffect(() => {
     if (location.state && location.state.cart) {
-      setCart(location.state.cart); // Get cart data passed from ShopPage
+      setCart(location.state.cart);
     }
   }, [location]);
 
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  // Countdown logic for 5 minutes
   useEffect(() => {
     if (paymentInitiated && countdown > 0) {
       const timer = setInterval(() => {
-        setCountdown(prev => prev - 1);
+        setCountdown((prev) => prev - 1);
       }, 1000);
-
-      return () => clearInterval(timer); // Cleanup interval on component unmount or countdown end
+      return () => clearInterval(timer);
     }
   }, [paymentInitiated, countdown]);
 
-  // Enable Confirm Payment button after 40 seconds
   useEffect(() => {
     if (paymentInitiated) {
       const timer = setTimeout(() => {
-        setConfirmButtonEnabled(true); // Enable the Confirm Payment button after 40 seconds
-      }, 40000); // 40 seconds in milliseconds
-
-      return () => clearTimeout(timer); // Cleanup timer on component unmount
+        setConfirmButtonEnabled(true);
+      }, 40000);
+      return () => clearTimeout(timer);
     }
   }, [paymentInitiated]);
 
-  // Handle checkout (initiate payment)
   const handleCheckout = () => {
-    setPaymentInitiated(true); // Start payment process and countdown
+    setPaymentInitiated(true);
   };
 
-  // Handle payment confirmation
   const handlePaymentConfirmation = () => {
-    setPaymentStatus('Payment is under processing'); // Change payment status
-    setShowPaymentProcessing(true); // Show the "Payment is under processing" prompt
+    setPaymentStatus('Payment is under processing');
+    setShowPaymentProcessing(true);
 
-    // Simulate payment processing with a delay (you can replace this with actual payment API logic)
     setTimeout(() => {
-      setPaymentConfirmed(true); // Mark the payment as confirmed
-      setShowPaymentProcessing(false); // Hide the processing message after payment is done
+      setPaymentConfirmed(true);
+      setShowPaymentProcessing(false);
 
-      // Generate the receipt after payment
       const generatedReceipt = {
-        products: cart.map(item => ({
+        products: cart.map((item) => ({
           name: item.name,
           quantity: item.quantity,
           price: item.price,
           total: item.price * item.quantity,
         })),
         total: total.toFixed(2),
-        estimatedDeliveryTime: '2-3 days', // Customize based on your delivery schedule
+        estimatedDeliveryTime: '2-3 days',
       };
 
-      setReceipt(generatedReceipt); // Set the generated receipt
-    }, 4000); // Simulate a 4-second payment processing delay
+      setReceipt(generatedReceipt);
+    }, 4000);
   };
 
-  // Function to generate PDF receipt
   const generatePDFReceipt = (generatedReceipt) => {
     const doc = new jsPDF();
-
-    // Add header with a more professional look
     doc.setFontSize(20);
     doc.text('Home Essentials - Payment Receipt', 20, 20);
     doc.setFontSize(12);
     doc.text('----------------------------------------', 20, 28);
 
-    // Add product details with clear section headings
     let yPosition = 40;
     doc.setFontSize(14);
     generatedReceipt.products.forEach((product) => {
@@ -95,17 +83,14 @@ const CartPage = () => {
       yPosition += 10;
     });
 
-    // Add total price in a highlighted format
     doc.setFontSize(16);
-    doc.setTextColor(0, 51, 102); // Dark blue for total
+    doc.setTextColor(0, 51, 102);
     doc.text(`Total Amount: $${generatedReceipt.total}`, 20, yPosition);
 
-    // Add delivery time section
     yPosition += 15;
     doc.setFontSize(12);
     doc.text(`Estimated Delivery Time: ${generatedReceipt.estimatedDeliveryTime}`, 20, yPosition);
 
-    // Add footer with phone number, email, and rights message
     yPosition += 20;
     doc.setFontSize(10);
     doc.text('For inquiries, contact:', 20, yPosition);
@@ -113,7 +98,6 @@ const CartPage = () => {
     doc.text('Email: govindashah603@gmail.com', 20, yPosition + 20);
     doc.text('All rights reserved to Home Essentials', 20, yPosition + 30);
 
-    // Save the PDF
     doc.save('receipt.pdf');
   };
 
@@ -125,23 +109,24 @@ const CartPage = () => {
           {cart.map((item) => (
             <div key={item.id} className="cart-item">
               <p className="item-name">{item.name}</p>
-              <p className="item-price">Price: ${item.price.toFixed(2)}</p>
+              <p className="item-price">Price: Rs {item.price.toFixed(2)}</p>
               <p className="item-quantity">Quantity: {item.quantity}</p>
-              <p className="item-total">Total: ${item.price * item.quantity}</p>
+              {/* <p className="item-total">Grand Total : Rs {item.price * item.quantity}</p> */}
+
             </div>
           ))}
           <div className="cart-total">
             <p>Total Price:</p>
-            <p>${total.toFixed(2)}</p>
+            <p>Rs {total.toFixed(2)}</p>
           </div>
           <button className="checkout-button" onClick={handleCheckout}>
-            Proceed to Checkout
+            Proceed to Payment
           </button>
 
           {paymentInitiated && !paymentConfirmed && (
             <div className="payment-section">
               <h2>Complete your payment</h2>
-              <p>Please pay the total amount of ${total.toFixed(2)} using Google Pay.</p>
+              <p>Please pay the total amount of Rs {total.toFixed(2)} using Google Pay.</p>
               <div className="qr-code">
                 <img src="/Images/qrcode.jpg" alt="Google Pay QR Code" width="200" height="200" />
               </div>
@@ -151,7 +136,6 @@ const CartPage = () => {
                 <p>Time left to complete payment: {Math.floor(countdown / 60)}:{String(countdown % 60).padStart(2, '0')}</p>
               </div>
 
-              {/* Disable Confirm Payment until 40 seconds have passed */}
               <button
                 onClick={handlePaymentConfirmation}
                 className="payment-confirm-button"
@@ -182,7 +166,6 @@ const CartPage = () => {
         <p className="empty-cart">Your cart is empty</p>
       )}
 
-      {/* Animated Payment Processing Modal */}
       {showPaymentProcessing && (
         <div className="payment-processing-modal">
           <div className="modal-content">

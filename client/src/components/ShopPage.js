@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 const ShopPage = () => {
   const [cart, setCart] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('Pocha');
+  const [categories, setCategories] = useState(['Pocha', 'Chocolate']);  // Track existing categories dynamically
   const navigate = useNavigate();
 
   const increaseQuantity = (product) => {
@@ -21,15 +23,21 @@ const ShopPage = () => {
   };
 
   const decreaseQuantity = (product) => {
-    setCart((prevCart) =>
-      prevCart
-        .map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity > 1 ? item.quantity - 1 : 0 } // Allow quantity to reach 0
-            : item
-        )
-        .filter((item) => item.quantity > 0) // Remove item if quantity is 0
-    );
+    setCart((prevCart) => {
+      const existingProduct = prevCart.find((item) => item.id === product.id);
+      if (existingProduct) {
+        if (existingProduct.quantity === 1) {
+          return prevCart.filter((item) => item.id !== product.id); // Remove from cart if quantity is 1
+        } else {
+          return prevCart.map((item) =>
+            item.id === product.id
+              ? { ...item, quantity: item.quantity - 1 }
+              : item
+          );
+        }
+      }
+      return prevCart;
+    });
   };
 
   const getQuantity = (productId) => {
@@ -38,33 +46,60 @@ const ShopPage = () => {
   };
 
   const addToCart = () => {
-    navigate('/cart', { state: { cart } }); // Pass the cart data to CartPage
+    navigate('/cart', { state: { cart } });
   };
 
   const products = [
-    { id: 1, name: 'Door-Mat1', price: 2, image: '/images/door-mat.jpg' },
-    { id: 2, name: 'Door-Mat2', price: 3, image: '/images/door-mat.jpg' },
-    { id: 3, name: 'Door-Mat3', price: 5, image: '/images/door-mat.jpg' },
-    { id: 4, name: 'Door-Mat4', price: 7, image: '/images/door-mat.jpg' },
-    { id: 5, name: 'Door-Mat5', price: 2, image: '/images/door-mat.jpg' },
-    { id: 6, name: 'Door-Mat6', price: 6, image: '/images/door-mat.jpg' },
-    { id: 7, name: 'Door-Mat7', price: 8, image: '/images/door-mat.jpg' },
-    { id: 8, name: 'Door-Mat8', price: 1, image: '/images/door-mat.jpg' },
-    { id: 9, name: 'Door-Mat9', price: 9, image: '/images/door-mat.jpg' },
-    { id: 10, name: 'Door-Mat10', price: 4, image: '/images/door-mat.jpg' },
-    { id: 11, name: 'Door-Mat11', price: 5, image: '/images/door-mat.jpg' },
-    { id: 12, name: 'Door-Mat12', price: 3, image: '/images/door-mat.jpg' },
+    { id: 1, name: 'Door-Mat1', price: 199, category: 'Pocha', image: '/images/door-mat.jpg' },
+    { id: 2, name: 'Aamras(500gm)', price: 500, category: 'Chocolate', image: '/images/aamras.jpg' },
+    { id: 3, name: 'Customised-Bar(15Letters)', price: 200, category: 'Chocolate', image: '/images/customisedbar.jpg' },
+    { id: 4, name: 'Dairy Milk(2bar)', price: 60, category: 'Chocolate', image: '/images/dairymilk.jpg' },
+    { id: 5, name: 'Hazel Nut(15pc)', price: 180, category: 'Chocolate', image: '/images/Hazelnut.jpg' },
+    { id: 6, name: 'Mango Nutella(25pc)', price: 350, category: 'Chocolate', image: '/images/mangonutella.jpg' },
+    { id: 7, name: 'Mix Dry Fruits(15pc)', price: 180, category: 'Chocolate', image: '/images/mixdryfruit.jpg' },
+    { id: 8, name: 'Orange Nutella(25pc)', price: 350, category: 'Chocolate', image: '/images/orangenutella.jpg' },
+    { id: 9, name: 'Oreo Bar(1bar)', price: 100, category: 'Chocolate', image: '/images/oreobar.jpg' },
+    { id: 10, name: 'Oreo Fudge(15pc)', price: 180, category: 'Chocolate', image: '/images/oreofudge.jpg' },
+    { id: 11, name: 'Oreo Truffle', price: 180, category: 'Chocolate', image: '/images/oreotruffle.jpg' },
+    { id: 12, name: 'Pan Masala(10pc)', price: 150, category: 'Chocolate', image: '/images/panmasala.jpg' },
+    { id: 13, name: 'Pista Nutella(25pc)', price: 350, category: 'Chocolate', image: '/images/pistanutella.jpg' },
+    { id: 14, name: 'Roasted Almond(15pc)', price: 150, category: 'Chocolate', image: '/images/roastedalmond.jpg' },
+    { id: 15, name: 'Royal Rose(10pc)', price: 150, category: 'Chocolate', image: '/images/royalrose.jpg' },
+    { id: 16, name: 'Sandwich Chocolate(15pc)', price: 150, category: 'Chocolate', image: '/images/sandwichchocolate.jpg' },
+    { id: 17, name: 'Strawberry Bites(15pc)', price: 250, category: 'Chocolate', image: '/images/strawberrybites.jpg' },
+    { id: 18, name: 'Strawberry Nutella(25pc)', price: 350, category: 'Chocolate', image: '/images/strawberrynutrella.jpg' },
+    { id: 19, name: 'Valentine Special(10pc)', price: 80, category: 'Chocolate', image: '/images/valentinespecial.jpg' },
   ];
+
+  // Filter products based on selected category
+  const filteredProducts = products.filter(
+    (product) => product.category === selectedCategory
+  );
 
   return (
     <div className="shop-page">
       <h1 className="shop-title">Shop Our Collection</h1>
+
+      {/* Category Selector */}
+      <div className="category-selector">
+        {categories.map((category) => (
+          <button
+            key={category}
+            onClick={() => setSelectedCategory(category)}
+            className={selectedCategory === category ? 'active' : ''}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+
+      {/* Product List */}
       <div className="product-list">
-        {products.map((product) => (
+        {filteredProducts.map((product) => (
           <div key={product.id} className="product-card">
             <img src={product.image} alt={product.name} className="product-image" />
             <h2>{product.name}</h2>
-            <p>Price: ${product.price}</p>
+            <p>Price: ₹{product.price}</p>
             <div className="quantity-control">
               <button
                 onClick={() => decreaseQuantity(product)}
@@ -84,41 +119,66 @@ const ShopPage = () => {
         ))}
       </div>
 
+      {/* Only show Go to Cart button if there are items in the cart */}
       {cart.length > 0 && (
         <button onClick={addToCart} className="add-to-cart-button">
-          Go to Cart ({cart.length} items)
+          Go to Cart ({cart.reduce((total, item) => total + item.quantity, 0)} items)
         </button>
       )}
 
       <style>
         {`
           .shop-page {
-            padding: 20px;
-            background-color: #f9f9f9;
+            padding: 40px;
+            background-color: #fff;
             font-family: 'Arial', sans-serif;
+            text-align: center;
           }
 
           .shop-title {
-            text-align: center;
             font-size: 2.5em;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             color: #333;
+          }
+
+          .category-selector {
+            margin-bottom: 20px;
+          }
+
+          .category-selector button {
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+          }
+
+          .category-selector button:hover {
+            background-color: #007bff;
+            color: white;
+          }
+
+          .category-selector .active {
+            background-color: #007bff;
+            color: white;
           }
 
           .product-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
             justify-content: center;
           }
 
           .product-card {
-            background: white;
+            background-color: #f9f9f9;
+            width: 250px;
+            margin: 15px;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 250px;
             transition: transform 0.3s ease;
           }
 
@@ -135,7 +195,7 @@ const ShopPage = () => {
 
           .product-card h2 {
             font-size: 1.5em;
-            color: #555;
+            color: #333;
             margin-bottom: 10px;
           }
 

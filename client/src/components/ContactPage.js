@@ -21,64 +21,104 @@ const ContactPage = () => {
           .contact-page {
             padding: 40px;
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(to bottom, #e0f7fa, #b2ebf2);
+            background-color: #f7f7f7;
             min-height: 100vh;
             text-align: center;
             color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
           }
 
           .contact-page h1 {
-            font-size: 2.5em;
-            color: #006064;
+            font-size: 3.5em;
+            color: #4CAF50;
+            text-transform: uppercase;
+            letter-spacing: 3px;
             margin-bottom: 20px;
+            font-weight: 700;
+            animation: fadeIn 2s ease-in-out;
           }
 
           .contact-page p {
             font-size: 1.2em;
-            margin: 10px 0;
-            line-height: 1.5;
+            line-height: 1.8;
+            max-width: 800px;
+            margin-bottom: 30px;
+            color: #555;
+            animation: slideIn 2s ease-in-out;
           }
 
           .contact-details {
-            margin-top: 30px;
             display: flex;
             flex-direction: column;
+            gap: 30px;
+            justify-content: center;
             align-items: center;
-            gap: 20px;
           }
 
           .contact-item {
             background: white;
-            border-radius: 10px;
             padding: 20px;
+            border-radius: 10px;
             width: 80%;
             max-width: 400px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+          }
+
+          .contact-item:hover {
+            transform: scale(1.05);
           }
 
           .contact-item h3 {
             font-size: 1.5em;
             color: #00796b;
             margin-bottom: 10px;
+            font-weight: 600;
           }
 
           .contact-item p {
             font-size: 1.2em;
             color: #555;
+            font-weight: 500;
+          }
+
+          @keyframes fadeIn {
+            from {
+              opacity: 0;
+              transform: translateY(-30px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+
+          @keyframes slideIn {
+            from {
+              opacity: 0;
+              transform: translateX(-50px);
+            }
+            to {
+              opacity: 1;
+              transform: translateX(0);
+            }
           }
 
           /* Mobile responsiveness */
-          @media (max-width: 600px) {
+          @media (max-width: 768px) {
+            .contact-page {
+              padding: 20px;
+            }
+
             .contact-page h1 {
-              font-size: 2em;
+              font-size: 2.8em;
             }
 
             .contact-page p {
-              font-size: 1em;
-            }
-
-            .contact-details {
-              padding: 10px;
+              font-size: 1.1em;
             }
 
             .contact-item {
@@ -91,6 +131,29 @@ const ContactPage = () => {
 
             .contact-item p {
               font-size: 1em;
+            }
+          }
+
+          @media (max-width: 480px) {
+            .contact-page h1 {
+              font-size: 2.4em;
+            }
+
+            .contact-page p {
+              font-size: 1em;
+              line-height: 1.6;
+            }
+
+            .contact-item {
+              width: 100%;
+            }
+
+            .contact-item h3 {
+              font-size: 1.2em;
+            }
+
+            .contact-item p {
+              font-size: 0.9em;
             }
           }
         `}
