@@ -1,90 +1,156 @@
 import React from 'react';
 
 const ContactPage = () => {
+  const email = 'govindashah603@gmail.com'; // Replace with your actual email
+  const phoneNumber = '+91-7045617506'; // Replace with your actual phone number
+
   return (
     <div className="contact-page">
+      {/* Title Section */}
       <h1>Contact Us</h1>
-      <p>If you have any questions or need assistance, feel free to reach out to us:</p>
-      <div className="contact-details">
-        <div className="contact-item">
-          <h3>Email</h3>
-          <p>govindashah603@gmail.com</p>
+      <p className="contact-description">
+        Have any questions? We're here to help! Reach out to us anytime, and we will respond as soon as possible.
+      </p>
+
+      {/* Contact Information */}
+      <div className="contact-info">
+        {/* Email Section */}
+        <div className="contact-item email-section">
+          <div className="icon-wrapper">
+            <i className="fas fa-envelope"></i>
+          </div>
+          <h2>Email Us</h2>
+          <p>Send us an email, and we will get back to you quickly:</p>
+          <a
+            href={`https://mail.google.com/mail/?view=cm&fs=1&to=${email}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="contact-link"
+          >
+            {email}
+          </a>
         </div>
-        <div className="contact-item">
-          <h3>Phone</h3>
-          <p>7045617506</p>
+
+        {/* Phone Section */}
+        <div className="contact-item phone-section">
+          <div className="icon-wrapper">
+            <i className="fas fa-phone-alt"></i>
+          </div>
+          <h2>Call Us</h2>
+          <p>Prefer to talk? Give us a call at:</p>
+          <a href={`tel:${phoneNumber}`} className="contact-link">
+            {phoneNumber}
+          </a>
         </div>
       </div>
 
+      {/* Footer */}
+      <div className="contact-footer">
+        <p>We look forward to hearing from you and are here to help anytime!</p>
+      </div>
+
+      {/* FontAwesome Import */}
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      />
+
+      {/* CSS Styling */}
       <style>
         {`
+          /* Global Container */
           .contact-page {
-            padding: 40px;
-            font-family: 'Arial', sans-serif;
-            background-color: #f7f7f7;
+            background-color: #000;
+            color: #fff;
             min-height: 100vh;
-            text-align: center;
-            color: #333;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            padding: 40px 20px;
           }
 
           .contact-page h1 {
-            font-size: 3.5em;
+            font-size: 4em;
+            margin-bottom: 10px;
             color: #4CAF50;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 20px;
-            font-weight: 700;
             animation: fadeIn 2s ease-in-out;
           }
 
-          .contact-page p {
-            font-size: 1.2em;
-            line-height: 1.8;
-            max-width: 800px;
+          .contact-description {
+            font-size: 1.3em;
             margin-bottom: 30px;
-            color: #555;
+            color: #ddd;
             animation: slideIn 2s ease-in-out;
           }
 
-          .contact-details {
+          /* Contact Information Container */
+          .contact-info {
             display: flex;
-            flex-direction: column;
-            gap: 30px;
+            flex-wrap: wrap;
             justify-content: center;
-            align-items: center;
+            gap: 30px;
+            margin-top: 20px;
+            animation: scaleIn 1.5s ease-in-out;
           }
 
           .contact-item {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 400px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            background-color: #111;
+            padding: 30px;
+            border-radius: 15px;
+            width: 300px;
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
           }
 
           .contact-item:hover {
-            transform: scale(1.05);
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.8);
           }
 
-          .contact-item h3 {
-            font-size: 1.5em;
-            color: #00796b;
-            margin-bottom: 10px;
-            font-weight: 600;
+          .contact-item h2 {
+            font-size: 2em;
+            margin: 10px 0;
+            color: #4CAF50;
           }
 
           .contact-item p {
-            font-size: 1.2em;
-            color: #555;
-            font-weight: 500;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            color: #bbb;
           }
 
+          .contact-link {
+            display: inline-block;
+            font-size: 1.2em;
+            color: #4CAF50;
+            text-decoration: none;
+            transition: color 0.3s ease;
+          }
+
+          .contact-link:hover {
+            color: #45a049;
+            text-decoration: underline;
+          }
+
+          /* Icon Styles */
+          .icon-wrapper {
+            font-size: 3em;
+            margin-bottom: 10px;
+            color: #4CAF50;
+          }
+
+          /* Footer */
+          .contact-footer {
+            margin-top: 40px;
+            font-size: 1.1em;
+            color: #ddd;
+          }
+
+          /* Animations */
           @keyframes fadeIn {
             from {
               opacity: 0;
@@ -107,53 +173,47 @@ const ContactPage = () => {
             }
           }
 
-          /* Mobile responsiveness */
+          @keyframes scaleIn {
+            from {
+              opacity: 0;
+              transform: scale(0.8);
+            }
+            to {
+              opacity: 1;
+              transform: scale(1);
+            }
+          }
+
+          /* Mobile Responsiveness */
           @media (max-width: 768px) {
-            .contact-page {
-              padding: 20px;
-            }
-
             .contact-page h1 {
-              font-size: 2.8em;
+              font-size: 3em;
             }
 
-            .contact-page p {
+            .contact-description {
               font-size: 1.1em;
             }
 
             .contact-item {
               width: 90%;
             }
-
-            .contact-item h3 {
-              font-size: 1.3em;
-            }
-
-            .contact-item p {
-              font-size: 1em;
-            }
           }
 
           @media (max-width: 480px) {
             .contact-page h1 {
-              font-size: 2.4em;
+              font-size: 2.5em;
             }
 
-            .contact-page p {
+            .contact-description {
               font-size: 1em;
-              line-height: 1.6;
             }
 
             .contact-item {
-              width: 100%;
+              padding: 20px;
             }
 
-            .contact-item h3 {
-              font-size: 1.2em;
-            }
-
-            .contact-item p {
-              font-size: 0.9em;
+            .contact-link {
+              font-size: 1em;
             }
           }
         `}

@@ -69,8 +69,17 @@ const ShopPage = () => {
     { id: 17, name: 'Strawberry Bites(15pc)', price: 250, category: 'Chocolate', image: process.env.PUBLIC_URL + '/images/strawberrybites.jpg' },
     { id: 18, name: 'Strawberry Nutella(25pc)', price: 350, category: 'Chocolate', image: process.env.PUBLIC_URL + '/images/strawberrynutrella.jpg' },
     { id: 19, name: 'Valentine Special(10pc)', price: 80, category: 'Chocolate', image: process.env.PUBLIC_URL + '/images/valentinespecial.jpg' },
+
+    // New Pocha products
+    { id: 20, name: 'Doormat 2', price: 199, category: 'Pocha', image: process.env.PUBLIC_URL + '/images/doormat2.jpg' },
+    { id: 21, name: 'Doormat 3', price: 249, category: 'Pocha', image: process.env.PUBLIC_URL + '/images/doormat3.jpg' },
+    { id: 22, name: 'Doormat 4', price: 299, category: 'Pocha', image: process.env.PUBLIC_URL + '/images/doormat4.jpg' },
+    { id: 23, name: 'Doormat 5', price: 349, category: 'Pocha', image: process.env.PUBLIC_URL + '/images/doormat5.jpg' },
+    { id: 24, name: 'Doormat 6', price: 399, category: 'Pocha', image: process.env.PUBLIC_URL + '/images/doormat6.jpg' },
+    { id: 25, name: 'Doormat 7', price: 449, category: 'Pocha', image: process.env.PUBLIC_URL + '/images/doormat7.jpg' },
+    { id: 26, name: 'Doormat 8', price: 499, category: 'Pocha', image: process.env.PUBLIC_URL + '/images/doormat8.jpg' },
+    { id: 27, name: 'Doormat 9', price: 549, category: 'Pocha', image: process.env.PUBLIC_URL + '/images/doormat9.jpg' },
   ];
-  
 
   // Filter products based on selected category
   const filteredProducts = products.filter(
@@ -127,134 +136,160 @@ const ShopPage = () => {
         </button>
       )}
 
-      <style>
-        {`
-          .shop-page {
-            padding: 40px;
-            background-color: #fff;
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-          }
+<style>
+  {`
+   .shop-page {
+  padding: 40px;
+  background-color: #000; /* Black background */
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  color: white; /* White text for visibility */
+}
 
-          .shop-title {
-            font-size: 2.5em;
-            margin-bottom: 30px;
-            color: #333;
-          }
+.shop-title {
+  font-size: 2.5em;
+  margin-bottom: 30px;
+  color: white; /* Ensures the title is also white */
+}
 
-          .category-selector {
-            margin-bottom: 20px;
-          }
+.category-selector {
+  margin-bottom: 20px;
+}
 
-          .category-selector button {
-            background-color: #f1f1f1;
-            border: 1px solid #ccc;
-            padding: 10px 20px;
-            margin: 0 10px;
-            font-size: 1.2em;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-          }
+.category-selector button {
+  background-color: #333;
+  border: 1px solid #555;
+  padding: 10px 20px;
+  margin: 0 10px;
+  font-size: 1.2em;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
 
-          .category-selector button:hover {
-            background-color: #007bff;
-            color: white;
-          }
+.category-selector button:hover,
+.category-selector .active {
+  background-color: #007bff;
+  color: white;
+}
 
-          .category-selector .active {
-            background-color: #007bff;
-            color: white;
-          }
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
 
-          .product-list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-          }
+.product-card {
+  background-color: #222; /* Dark grey background for cards */
+  width: 300px;
+  margin: 15px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
 
-          .product-card {
-            background-color: #f9f9f9;
-            width: 250px;
-            margin: 15px;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-          }
+.product-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px 5px rgba(255, 255, 255, 0.4); /* Studio light glow */
+}
 
-          .product-card:hover {
-            transform: scale(1.05);
-          }
+.product-image-container {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  margin-bottom: 15px;
+  border-radius: 10px;
+}
 
-          .product-image {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            margin-bottom: 15px;
-          }
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
 
-          .product-card h2 {
-            font-size: 1.5em;
-            color: #333;
-            margin-bottom: 10px;
-          }
+.product-card:hover .product-image {
+  transform: scale(1.1);
+  filter: brightness(1.3);
+}
 
-          .product-card p {
-            font-size: 1.2em;
-            color: #777;
-            margin-bottom: 20px;
-          }
+.product-card h2 {
+  font-size: 1.5em;
+  color: white;
+  margin-bottom: 10px;
+}
 
-          .quantity-control {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 10px;
-          }
+.product-card p {
+  font-size: 1.2em;
+  color: #bbb; /* Slightly lighter grey for description */
+  margin-bottom: 20px;
+}
 
-          .quantity-button {
-            padding: 5px 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-          }
+.quantity-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
 
-          .quantity-button:hover {
-            background-color: #0056b3;
-          }
+.quantity-button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
-          .quantity {
-            font-size: 1.2em;
-            color: #333;
-            width: 40px;
-            text-align: center;
-          }
+.quantity-button:hover {
+  background-color: #0056b3;
+}
 
-          .add-to-cart-button {
-            background-color: #4caf50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 1em;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-top: 20px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-          }
+.quantity {
+  font-size: 1.2em;
+  color: white;
+  width: 40px;
+  text-align: center;
+}
 
-          .add-to-cart-button:hover {
-            background-color: #45a049;
-          }
-        `}
-      </style>
+.add-to-cart-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.add-to-cart-button:hover {
+  background-color: #45a049;
+}
+
+  `}
+</style>
+
+
+
+
+
     </div>
   );
 };
